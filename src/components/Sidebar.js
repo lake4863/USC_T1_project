@@ -18,6 +18,7 @@ export default function Sidebar() {
           <Link to="#" className="menu-bars">
             <FaIcons.FaBars onClick={handleSidebar} />
           </Link>
+          <p>Top Rated Movies List</p>
         </div>
         <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
           <ul className="nav-menu-item" onClick={handleSidebar}>
