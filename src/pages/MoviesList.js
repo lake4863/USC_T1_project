@@ -47,7 +47,7 @@ class MoviesList extends React.Component {
       return <div>Didn't get a movie</div>;
     }
     return (
-      <div>
+      <div className="moviesList">
         <div>
           <button onClick={this.pre} id="pre">
             Pre

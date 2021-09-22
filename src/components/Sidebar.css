@@ -22,7 +22,7 @@
 .nav-menu {
   background-color: rgb(216, 216, 216);
   width: 250px;
-  height: 100vh;
+  height: 100vh; /* Relative to 1% of the height of the viewport* */
   display: flex;
   justify-content: center;
   position: fixed;
