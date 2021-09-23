@@ -22,12 +22,16 @@ code {
 .moviesList,
 .likedList,
 .blockedList {
+  /* margin: 15px; */
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100vh;
+  /* height: 100%; */
+  width: 100%;
+  max-width: 750px;
   display: flex;
   flex-direction: column;
   align-items: center;
   /* justify-content: center; */
-  min-height: 100vh;
-  height: 100%;
-  margin: 15px;
   background-color: rgb(240, 240, 191);
 }

@@ -18,6 +18,7 @@ export default function MoviesList() {
   const [sortlist, setSortlist] = useState(["", "", "", ""]);
 
   useEffect(() => {
+    setSortlist(["", "", "", ""]); // Reset sort btn if change page
     const url = `${BASE_URL}${MOVIE_TYPE}${API_KEY}${REST}` + page;
     fetch(url)
       .then((res) => res.json())
@@ -34,37 +35,79 @@ export default function MoviesList() {
   const handleNext = () => {
     setPage(page + 1);
   };
-  // clear the other buttons active status if another one is pressed
-  // first time press does not change ↓ arrow direction
+  // Reset the other buttons active status if another one is pressed
+  // First time press does not change ↓ arrow direction
+  // Sort function is done for each single page
   const sortBtnTitle = () => {
     if (sortlist[0] === false) {
       setSortlist([true, "", "", ""]);
+      setMovie(
+        movie.sort((a, b) => {
+          if (a.title > b.title) return -1;
+        })
+      );
     } else {
       // first time & true
       setSortlist([false, "", "", ""]);
+      setMovie(
+        movie.sort((a, b) => {
+          if (a.title < b.title) return -1;
+        })
+      );
     }
   };
   const sortBtnVote = () => {
     if (sortlist[1] === false) {
       setSortlist(["", true, "", ""]);
+      setMovie(
+        movie.sort((a, b) => {
+          if (a.vote_count < b.vote_count) return -1;
+        })
+      );
     } else {
       setSortlist(["", false, "", ""]);
+      setMovie(
+        movie.sort((a, b) => {
+          if (a.vote_count > b.vote_count) return -1;
+        })
+      );
     }
   };
   const sortBtnScore = () => {
     if (sortlist[2] === false) {
       setSortlist(["", "", true, ""]);
+      setMovie(
+        movie.sort((a, b) => {
+          if (a.vote_average < b.vote_average) return -1;
+        })
+      );
     } else {
       setSortlist(["", "", false, ""]);
+      setMovie(
+        movie.sort((a, b) => {
+          if (a.vote_average > b.vote_average) return -1;
+        })
+      );
     }
   };
   const sortBtnDate = () => {
     if (sortlist[3] === false) {
       setSortlist(["", "", "", true]);
+      setMovie(
+        movie.sort((a, b) => {
+          if (a.release_date < b.release_date) return -1;
+        })
+      );
     } else {
       setSortlist(["", "", "", false]);
+      setMovie(
+        movie.sort((a, b) => {
+          if (a.release_date > b.release_date) return -1;
+        })
+      );
     }
   };
+
   return (
     <div className="moviesList">
       <div className="sortBtn">
