@@ -1,7 +1,18 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from "react";
 
 // ctrl + d 同时选中！
 function Home() {
+  const [curtime, setCurtime] = useState(new Date().toLocaleTimeString());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurtime(new Date().toLocaleTimeString());
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  });
+
   return (
     // <div style={{ height: "100vh" }}>
     <div className="home">
@@ -12,7 +23,11 @@ function Home() {
         width="60%"
         // style={{ alignSelf: "center" }}
       />
-      <script>
+      <hr />
+      <h3>Current time</h3>
+      {curtime}
+
+      {/* <script>
         function MyFunction() {
           let myCurrentDate = new Date();
           let date = myCurrentDate.getFullYear() + '-' + (myCurrentDate.getMonth()+1) + '-' + myCurrentDate.getDate() +' '+ myCurrentDate.getHours()+':'+ myCurrentDate.getMinutes()+':'+ myCurrentDate.getSeconds();
@@ -25,7 +40,7 @@ function Home() {
           <MyFunction />,
           document.getElementById('root')
         );
-      </script>
+      </script> */}
     </div>
   );
 }
