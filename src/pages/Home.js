@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from 'react';
 
 // ctrl + d 同时选中！
 function Home() {
@@ -12,6 +12,20 @@ function Home() {
         width="60%"
         // style={{ alignSelf: "center" }}
       />
+      <script>
+        function MyFunction() {
+          let myCurrentDate = new Date();
+          let date = myCurrentDate.getFullYear() + '-' + (myCurrentDate.getMonth()+1) + '-' + myCurrentDate.getDate() +' '+ myCurrentDate.getHours()+':'+ myCurrentDate.getMinutes()+':'+ myCurrentDate.getSeconds();
+          const newCurrentDate = "Current Date and Time: "+date;
+          return (
+            <p>{newCurrentDate}</p>
+          );
+        }
+        ReactDOM.render(
+          <MyFunction />,
+          document.getElementById('root')
+        );
+      </script>
     </div>
   );
 }
