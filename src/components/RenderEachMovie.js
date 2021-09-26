@@ -16,7 +16,7 @@ export default function RenderEachMovie(props) {
   let likedListDisabled = likedList.find((likedListItem) =>
     likedListItem.id === item.id ? true : false
   );
-  let blockedListActive = blockedList.find((BlockedListItem) =>
+  let blockedListDisabled = blockedList.find((BlockedListItem) =>
     BlockedListItem.id === item.id ? true : false
   );
 
@@ -31,7 +31,6 @@ export default function RenderEachMovie(props) {
 
   return (
     <>
-      {!blockedListActive ? (
         <div key={item.id} className="movieContent">
           <img src={IMG_URL + item.poster_path} width="60%" />
           <br />
@@ -46,8 +45,12 @@ export default function RenderEachMovie(props) {
               {/* <p>{likeBtnHTML}</p> */}
               <p>{likedListDisabled ? "Already liked" : "Like"}</p>
             </button>
-            <button id="blockBtn" onClick={() => handleBlockClick(item)}>
-              <p>Block</p>
+            <button
+                id={blockedListDisabled ? "blockedBtn" : "blockBtn"}
+                disable = { blockedListDisabled }
+                onClick={() => handleBlockClick(item)}
+            >
+              <p>{blockedListDisabled ? "Already blocked" : "Block"}</p>
             </button>
           </div>
           <div className="movieTitle">
@@ -62,9 +65,6 @@ export default function RenderEachMovie(props) {
           </div>
           <div className="movieOverview">{item.overview}</div>
         </div>
-      ) : (
-        <div className="BlockedNotice">&lt;&ensp;Blocked movie&ensp;&gt;</div>
-      )}
     </>
   );
 }
