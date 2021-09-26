@@ -26,7 +26,7 @@ export default function LikedList() {
         {/* <button onClick={handleClick}>asdf</button> */}
         <div className="likedListGrid">
           {likedList.map((item) => {
-            return <LikedListMovie item={item} />;
+            return <LikedListMovie key={item.id} item={item} />;
           })}
         </div>
       </div>

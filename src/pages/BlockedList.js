@@ -22,7 +22,7 @@ export default function BlockedList() {
         </div>
         <div className="likedListGrid">
           {blockedList.map((item) => {
-            return <BlockedListMovie item={item} />;
+            return <BlockedListMovie key={item.id} item={item} />;
           })}
         </div>
       </div>

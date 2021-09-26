@@ -22,6 +22,7 @@ export default function RenderEachMovie(props) {
 
   const handleLikeClick = (item) => {
     addMovieToLikedList(item);
+    // console.log("let's see if I can get this value here", likedListDisabled)
     // setPressLike(true);
     // setlikeBtnHTML("Already Liked");
   };
