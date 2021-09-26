@@ -5,7 +5,17 @@ export default (state, action) => {
         ...state,
         likedList: [action.payload, ...state.likedList],
       };
+    case "REMOVE_MOVIE_TO_LIKEDLIST":
+      return {
+        ...state,
+        likedList: [action.payload, ...state.likedList],
+      };
     case "ADD_MOVIE_TO_BLOCKEDLIST":
+      return {
+        ...state,
+        blockedList: [action.payload, ...state.blockedList],
+      };
+    case "REMOVE_MOVIE_TO_BLOCKEDLIST":
       return {
         ...state,
         blockedList: [action.payload, ...state.blockedList],

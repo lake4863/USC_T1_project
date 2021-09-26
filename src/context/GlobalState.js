@@ -20,8 +20,14 @@ export const GlobalProvider = (props) => {
   const addMovieToLikedList = (movie) => {
     dispatch({ type: "ADD_MOVIE_TO_LIKEDLIST", payload: movie });
   };
+  const removeMovieToLikedList = (movie) => {
+    dispatch({ type: "REMOVE_MOVIE_TO_LIKEDLIST", payload: movie });
+  };
   const addMovieToBlockedList = (movie) => {
     dispatch({ type: "ADD_MOVIE_TO_BLOCKEDLIST", payload: movie });
+  };
+  const removeMovieToBlockedList = (movie) => {
+    dispatch({ type: "remove_MOVIE_TO_BLOCKEDLIST", payload: movie });
   };
 
   return (
@@ -30,7 +36,9 @@ export const GlobalProvider = (props) => {
         likedList: state.likedList,
         blockedList: state.blockedList,
         addMovieToLikedList: addMovieToLikedList,
+        removeMovieToLikedList: removeMovieToLikedList,
         addMovieToBlockedList: addMovieToBlockedList,
+        removeMovieToBlockedList: removeMovieToBlockedList,
       }}
     >
       {props.children}
