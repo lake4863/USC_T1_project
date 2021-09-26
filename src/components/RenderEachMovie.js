@@ -47,7 +47,7 @@ export default function RenderEachMovie(props) {
             </button>
             <button
                 id={blockedListDisabled ? "blockedBtn" : "blockBtn"}
-                disable = { blockedListDisabled }
+                disabled = { blockedListDisabled }
                 onClick={() => handleBlockClick(item)}
             >
               <p>{blockedListDisabled ? "Already blocked" : "Block"}</p>

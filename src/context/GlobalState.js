@@ -27,7 +27,7 @@ export const GlobalProvider = (props) => {
     dispatch({ type: "ADD_MOVIE_TO_BLOCKEDLIST", payload: movie });
   };
   const removeMovieToBlockedList = (movie) => {
-    dispatch({ type: "remove_MOVIE_TO_BLOCKEDLIST", payload: movie });
+    dispatch({ type: "REMOVE_MOVIE_TO_BLOCKEDLIST", payload: movie });
   };
 
   return (
