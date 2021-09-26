@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import * as CgIcons from "react-icons/cg";
 import * as faIcons from "react-icons/fa";
 import { IconContext } from "react-icons";
@@ -10,12 +10,27 @@ import {
   REST,
   IMG_URL,
 } from "../components/Config";
+// import { GlobalContext, GlobalProvider } from "../context/GlobalState";
+import RenderEachMovie from "../components/RenderEachMovie";
+import SortButtons from "../components/SortButtons";
 
 export default function MoviesList() {
   const [movie, setMovie] = useState([]);
   const [page, setPage] = useState(1);
   const [totalpage, setTotalpage] = useState([]);
   const [sortlist, setSortlist] = useState(["", "", "", ""]);
+
+  /*  const { addMovieToLikedList, likedList } = useContext(GlobalContext);
+
+    const likedListDisabled = (id) => {
+    // console.log(likedList);
+    likedList.find((likedListItem) => {
+      // console.log("likedListItem id:", likedListItem.id);
+      // console.log("prop id:", id);
+      // console.log(likedListItem.id === id ? true : false);
+      return likedListItem.id === id ? true : false;
+    });
+  }; */
 
   useEffect(() => {
     setSortlist(["", "", "", ""]); // Reset sort btn if change page
@@ -35,95 +50,15 @@ export default function MoviesList() {
   const handleNext = () => {
     setPage(page + 1);
   };
-  // Reset the other buttons active status if another one is pressed
-  // First time press does not change ↓ arrow direction
-  // Sort function is done for each single page
-  const sortBtnTitle = () => {
-    if (sortlist[0] === false) {
-      setSortlist([true, "", "", ""]);
-      setMovie(
-        movie.sort((a, b) => {
-          if (a.title > b.title) return -1;
-        })
-      );
-    } else {
-      // first time & true
-      setSortlist([false, "", "", ""]);
-      setMovie(
-        movie.sort((a, b) => {
-          if (a.title < b.title) return -1;
-        })
-      );
-    }
-  };
-  const sortBtnVote = () => {
-    if (sortlist[1] === false) {
-      setSortlist(["", true, "", ""]);
-      setMovie(
-        movie.sort((a, b) => {
-          if (a.vote_count < b.vote_count) return -1;
-        })
-      );
-    } else {
-      setSortlist(["", false, "", ""]);
-      setMovie(
-        movie.sort((a, b) => {
-          if (a.vote_count > b.vote_count) return -1;
-        })
-      );
-    }
-  };
-  const sortBtnScore = () => {
-    if (sortlist[2] === false) {
-      setSortlist(["", "", true, ""]);
-      setMovie(
-        movie.sort((a, b) => {
-          if (a.vote_average < b.vote_average) return -1;
-        })
-      );
-    } else {
-      setSortlist(["", "", false, ""]);
-      setMovie(
-        movie.sort((a, b) => {
-          if (a.vote_average > b.vote_average) return -1;
-        })
-      );
-    }
-  };
-  const sortBtnDate = () => {
-    if (sortlist[3] === false) {
-      setSortlist(["", "", "", true]);
-      setMovie(
-        movie.sort((a, b) => {
-          if (a.release_date < b.release_date) return -1;
-        })
-      );
-    } else {
-      setSortlist(["", "", "", false]);
-      setMovie(
-        movie.sort((a, b) => {
-          if (a.release_date > b.release_date) return -1;
-        })
-      );
-    }
-  };
 
   return (
     <div className="moviesList">
-      <div className="sortBtn">
-        <button id="sortBtnTitle" onClick={sortBtnTitle}>
-          <p>Title {sortlist[0] ? "↑" : "↓"}</p>
-        </button>
-        <button id="sortBtnVote" onClick={sortBtnVote}>
-          <p>Vote Count {sortlist[1] ? "↑" : "↓"}</p>
-        </button>
-        <button id="sortBtnScore" onClick={sortBtnScore}>
-          <p>Average Score {sortlist[2] ? "↑" : "↓"}</p>
-        </button>
-        <button id="sortBtnDate" onClick={sortBtnDate}>
-          <p>Release Date {sortlist[3] ? "↑" : "↓"}</p>
-        </button>
-      </div>
+      <SortButtons
+        movie={movie}
+        setMovie={setMovie}
+        sortlist={sortlist}
+        setSortlist={setSortlist}
+      />
       <BordorLine />
       <div className="pageBtn">
         <IconContext.Provider value={{ color: "black", size: "1.75rem" }}>
@@ -143,28 +78,8 @@ export default function MoviesList() {
       </div>
       <BordorLine />
       {movie.map((item) => (
-        <div key={item.id} className="movieContent">
-          <img src={IMG_URL + item.poster_path} width="60%" />
-          <br />
-          <div className="movieBtn">
-            <button id="likeBtn">
-              <p>Liked</p>
-            </button>
-            <button id="blockBtn">
-              <p>Block</p>
-            </button>
-          </div>
-          <div className="movieTitle">
-            <IconContext.Provider value={{ color: "red", size: "2rem" }}>
-              <faIcons.FaHeart />
-            </IconContext.Provider>
-            {item.title}
-          </div>
-          <div>Release Date: {item.release_date}</div>
-          <div>
-            Vote Count: {item.vote_count}| Average Score: {item.vote_average}/10
-          </div>
-          <div className="movieOverview">{item.overview}</div>
+        <div key={item.id}>
+          <RenderEachMovie item={item} />
         </div>
       ))}
     </div>
@@ -172,88 +87,94 @@ export default function MoviesList() {
 }
 
 const BordorLine = () => (
-  <hr style={{ margin: "10px", width: "90%", border: "1px solid black" }} />
+  <hr
+    style={{
+      margin: "10px 5% 10px 5%",
+      width: "90%",
+      border: "1px solid black",
+    }}
+  />
 );
 
-// Day2 - Yuanfeng
-// class MoviesList extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       loading: true,
-//       movie: [],
-//       page: 1,
-//     };
-//   }
-//   async componentDidMount() {
-//     const url = `${BASE_URL}${MOVIE_TYPE}${API_KEY}${REST}` + this.state.page;
-//     const response = await fetch(url);
-//     const data = await response.json();
-//     this.setState({ movie: data.results, loading: false });
-//   }
-//   async componentDidUpdate() {
-//     const url = `${BASE_URL}${MOVIE_TYPE}${API_KEY}${REST}` + this.state.page;
-//     const response = await fetch(url);
-//     const data = await response.json();
-//     this.setState({ movie: data.results, loading: false });
-//   }
+/* Day2 - Yuanfeng
+class MoviesList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      movie: [],
+      page: 1,
+    };
+  }
+  async componentDidMount() {
+    const url = `${BASE_URL}${MOVIE_TYPE}${API_KEY}${REST}` + this.state.page;
+    const response = await fetch(url);
+    const data = await response.json();
+    this.setState({ movie: data.results, loading: false });
+  }
+  async componentDidUpdate() {
+    const url = `${BASE_URL}${MOVIE_TYPE}${API_KEY}${REST}` + this.state.page;
+    const response = await fetch(url);
+    const data = await response.json();
+    this.setState({ movie: data.results, loading: false });
+  }
 
-//   pre = () => {
-//     if (this.state.page > 1) {
-//       this.setState({ page: this.state.page - 1 });
-//     }
-//   };
-//   nex = () => {
-//     if (this.state.page < 500) {
-//       this.setState({ page: this.state.page + 1 });
-//     }
-//   };
-//   render() {
-//     if (this.state.loading) {
-//       return <div>loading...</div>;
-//     }
-//     if (!this.state.movie.length) {
-//       return <div>Didn't get a movie</div>;
-//     }
-//     const { page, movie } = this.state;
-//     return (
-//       <div className="moviesList">
-//         <div className="sortBtn">
-//           <button></button>
-//           <button></button>
-//           <button></button>
-//           <button></button>
-//         </div>
-//         <div className="pageBtn">
-//           <hr />
-//           <button onClick={this.pre} disabled={page === 1 ? true : false}>
-//             Pre
-//           </button>
-//           <button onClick={this.nex} disabled={page === 500 ? true : false}>
-//             Nex
-//           </button>
-//           <hr />
-//         </div>
-//         {movie.map((movielist) => (
-//           <div id="Word">
-//             <img
-//               src={"https://image.tmdb.org/t/p/w500" + movielist.poster_path}
-//             />
-//             <br />
-//             <button>Liked</button>
-//             <button>Blocked</button>
-//             <div>{movielist.title}</div>
-//             <div>Release Date: {movielist.release_date}</div>
-//             <div>
-//               Vote Count: {movielist.vote_count}| Average Score:{" "}
-//               {movielist.vote_average}/10
-//             </div>
-//             <div>{movielist.overview}</div>
-//           </div>
-//         ))}
-//       </div>
-//     );
-//   }
-// }
+  pre = () => {
+    if (this.state.page > 1) {
+      this.setState({ page: this.state.page - 1 });
+    }
+  };
+  nex = () => {
+    if (this.state.page < 500) {
+      this.setState({ page: this.state.page + 1 });
+    }
+  };
+  render() {
+    if (this.state.loading) {
+      return <div>loading...</div>;
+    }
+    if (!this.state.movie.length) {
+      return <div>Didn't get a movie</div>;
+    }
+    const { page, movie } = this.state;
+    return (
+      <div className="moviesList">
+        <div className="sortBtn">
+          <button></button>
+          <button></button>
+          <button></button>
+          <button></button>
+        </div>
+        <div className="pageBtn">
+          <hr />
+          <button onClick={this.pre} disabled={page === 1 ? true : false}>
+            Pre
+          </button>
+          <button onClick={this.nex} disabled={page === 500 ? true : false}>
+            Nex
+          </button>
+          <hr />
+        </div>
+        {movie.map((movielist) => (
+          <div id="Word">
+            <img
+              src={"https://image.tmdb.org/t/p/w500" + movielist.poster_path}
+            />
+            <br />
+            <button>Liked</button>
+            <button>Blocked</button>
+            <div>{movielist.title}</div>
+            <div>Release Date: {movielist.release_date}</div>
+            <div>
+              Vote Count: {movielist.vote_count}| Average Score:{" "}
+              {movielist.vote_average}/10
+            </div>
+            <div>{movielist.overview}</div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+}
 
-// export default MoviesList;
+export default MoviesList; */

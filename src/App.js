@@ -5,10 +5,11 @@ import Home from "./pages/Home";
 import MoviesList from "./pages/MoviesList";
 import LikedList from "./pages/LikedList";
 import BlockedList from "./pages/BlockedList";
+import { GlobalProvider } from "./context/GlobalState";
 
 function App() {
   return (
-    <>
+    <GlobalProvider>
       <Router>
         <Sidebar />
         <Switch>
@@ -18,7 +19,7 @@ function App() {
           <Route path="/blockedList" component={BlockedList} />
         </Switch>
       </Router>
-    </>
+    </GlobalProvider>
   );
 }
 

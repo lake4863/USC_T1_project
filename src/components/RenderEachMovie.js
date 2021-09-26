@@ -1,0 +1,70 @@
+import React, { useState, useEffect, useContext } from "react";
+import * as CgIcons from "react-icons/cg";
+import * as faIcons from "react-icons/fa";
+import { IconContext } from "react-icons";
+import "../pages/MoviesList.css";
+import { BASE_URL, MOVIE_TYPE, API_KEY, REST, IMG_URL } from "./Config";
+import { GlobalContext, GlobalProvider } from "../context/GlobalState";
+
+export default function RenderEachMovie(props) {
+  const { item } = props;
+  const { addMovieToLikedList, addMovieToBlockedList, likedList, blockedList } =
+    useContext(GlobalContext);
+  // const [pressLike, setPressLike] = useState(false);
+  // const [likeBtnHTML, setlikeBtnHTML] = useState("Like");
+
+  let likedListDisabled = likedList.find((likedListItem) =>
+    likedListItem.id === item.id ? true : false
+  );
+  let blockedListActive = blockedList.find((BlockedListItem) =>
+    BlockedListItem.id === item.id ? true : false
+  );
+
+  const handleLikeClick = (item) => {
+    addMovieToLikedList(item);
+    // setPressLike(true);
+    // setlikeBtnHTML("Already Liked");
+  };
+  const handleBlockClick = (item) => {
+    addMovieToBlockedList(item);
+  };
+
+  return (
+    <>
+      {!blockedListActive ? (
+        <div key={item.id} className="movieContent">
+          <img src={IMG_URL + item.poster_path} width="60%" />
+          <br />
+          <div className="movieBtn">
+            <button
+              // id={pressLike ? "likedBtn" : "likeBtn"}
+              id={likedListDisabled ? "likedBtn" : "likeBtn"}
+              disabled={likedListDisabled}
+              // onClick={() => addMovieToLikedList(item)}
+              onClick={() => handleLikeClick(item)}
+            >
+              {/* <p>{likeBtnHTML}</p> */}
+              <p>{likedListDisabled ? "Already liked" : "Like"}</p>
+            </button>
+            <button id="blockBtn" onClick={() => handleBlockClick(item)}>
+              <p>Block</p>
+            </button>
+          </div>
+          <div className="movieTitle">
+            <IconContext.Provider value={{ color: "red", size: "2rem" }}>
+              <faIcons.FaHeart />
+            </IconContext.Provider>
+            {item.title}
+          </div>
+          <div>Release Date: {item.release_date}</div>
+          <div>
+            Vote Count: {item.vote_count}| Average Score: {item.vote_average}/10
+          </div>
+          <div className="movieOverview">{item.overview}</div>
+        </div>
+      ) : (
+        <div className="BlockedNotice">&lt;&ensp;Blocked movie&ensp;&gt;</div>
+      )}
+    </>
+  );
+}

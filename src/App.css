@@ -26,12 +26,34 @@ code {
   margin-left: auto;
   margin-right: auto;
   min-height: 100vh;
-  /* height: 100%; */
+  height: 100%;
   width: 100%;
   max-width: 750px;
   display: flex;
   flex-direction: column;
+  background-color: rgb(240, 240, 191);
+}
+.home {
   align-items: center;
   /* justify-content: center; */
-  background-color: rgb(240, 240, 191);
+}
+
+.pageTitle {
+  text-align: center;
+  margin-top: 20px;
+  font-family: "Lucida Handwriting", "Brush Script MT", sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+}
+.pageNoMovie {
+  margin-top: 100px;
+  text-align: center;
+  font-family: "Lucida Handwriting", "Brush Script MT", sans-serif;
+  font-size: 30px;
+}
+.BlockedNotice {
+  text-align: center;
+  font-family: "Lucida Handwriting", "Brush Script MT", sans-serif;
+  font-size: 30px;
+  font-weight: bold;
 }

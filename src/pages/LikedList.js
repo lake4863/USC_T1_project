@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   BASE_URL,
   MOVIE_TYPE,
@@ -6,14 +6,30 @@ import {
   REST,
   IMG_URL,
 } from "../components/Config";
+import { GlobalContext } from "../context/GlobalState";
+import "./LikedList.css";
+import LikedListMovie from "../components/LikedListMovie";
 
-function LikedList() {
-  const url = `${BASE_URL}${MOVIE_TYPE}${API_KEY}${REST}1`;
+export default function LikedList() {
+  const { likedList } = useContext(GlobalContext);
+
+  // const handleClick = () => {
+  //   console.log(likedList);
+  // };
   return (
     <div className="likedList">
-      <h1>LikedList</h1>
+      <div className="likedListContainer">
+        <div className="pageTitle">Liked List</div>
+        <div className="pageNoMovie">
+          {likedList.length ? "" : "No movie in liked list currently."}
+        </div>
+        {/* <button onClick={handleClick}>asdf</button> */}
+        <div className="likedListGrid">
+          {likedList.map((item) => {
+            return <LikedListMovie item={item} />;
+          })}
+        </div>
+      </div>
     </div>
   );
 }
-
-export default LikedList;
