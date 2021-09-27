@@ -6,11 +6,9 @@ export default (state, action) => {
         likedList: [action.payload, ...state.likedList],
       };
     case "REMOVE_MOVIE_TO_LIKEDLIST":
-      let newArray = state.likedList.filter(element => element !== action.payload);
       return {
         ...state,
-        //likedList: [action.payload, ...state.likedList],
-        likedList: newArray,
+        likedList: state.likedList.filter((item) => item.id !== action.payload),
       };
     case "ADD_MOVIE_TO_BLOCKEDLIST":
       return {
@@ -20,7 +18,7 @@ export default (state, action) => {
     case "REMOVE_MOVIE_TO_BLOCKEDLIST":
       return {
         ...state,
-        blockedList: [action.payload, ...state.blockedList],
+        blockedList: state.blockedList.filter((item) => item.id !== action.payload),
       };
     default:
       return state;
