@@ -32,6 +32,7 @@ export default function RenderEachMovie(props) {
 
   return (
     <>
+      {!blockedListDisabled ? (
         <div key={item.id} className="movieContent">
           <img src={IMG_URL + item.poster_path} width="60%" />
           <br />
@@ -66,6 +67,9 @@ export default function RenderEachMovie(props) {
           </div>
           <div className="movieOverview">{item.overview}</div>
         </div>
+      ) : (
+          <div className="BlockedNotice">&lt;&ensp;Blocked movie&ensp;&gt;</div>
+      )}
     </>
   );
 }
