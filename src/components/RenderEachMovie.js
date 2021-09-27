@@ -44,14 +44,14 @@ export default function RenderEachMovie(props) {
               onClick={() => handleLikeClick(item)}
             >
               {/* <p>{likeBtnHTML}</p> */}
-              <p>{likedListDisabled ? "Already liked" : "Like"}</p>
+              <p>{likedListDisabled ? "Liked" : "Like"}</p>
             </button>
             <button
                 id={blockedListDisabled ? "blockedBtn" : "blockBtn"}
                 disabled = { blockedListDisabled }
                 onClick={() => handleBlockClick(item)}
             >
-              <p>{blockedListDisabled ? "Already blocked" : "Block"}</p>
+              <p>{blockedListDisabled ? "Blocked" : "Block"}</p>
             </button>
           </div>
           <div className="movieTitle">
