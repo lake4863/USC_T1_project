@@ -1,0 +1,56 @@
+.movieContent {
+  margin: 20px 10%;
+  text-align: center;
+  font-size: 20px;
+  font-family: "Comic Sans MS", "Lucida Handwriting", sans-serif;
+}
+.movieBtn button {
+  margin: 0px 5px;
+  padding: 5px;
+  color: white;
+}
+#likeBtn {
+  background-color: rgb(204, 17, 17);
+}
+#likedBtn {
+  background-color: rgb(99, 36, 36);
+}
+#blockBtn {
+  background-color: rgb(182, 178, 178);
+}
+.movieTitle {
+  margin: 15px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-family: "Comic Sans MS", "Lucida Handwriting", sans-serif;
+}
+.movieOverview {
+  margin-top: 10px;
+  text-align: left;
+}
+.sortBtnContainer {
+  margin: 30px 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+.sortBtn button {
+  margin: 0 5px;
+  padding: 5px 15px;
+  color: #fff;
+  background-color: rgb(43, 126, 182);
+}
+.pageBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  font-weight: bold;
+}
+.pageBtn button {
+  margin: 0px 150px;
+  border: 1px solid transparent;
+  outline: none;
+  background-color: rgb(240, 240, 191);
+}

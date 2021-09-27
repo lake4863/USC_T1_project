@@ -1,0 +1,29 @@
+.likedListContainer {
+  margin: 0;
+  padding: 0;
+}
+
+/* .likedListMovieList {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+} */
+
+.likedListGrid {
+  margin: 0% 5%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 5%;
+}
+
+.likedListMovie {
+  width: 100%;
+  /* position: relative; */
+  border: 0;
+  display: block;
+}
+
+.likedListMovie img {
+  width: 100%;
+  display: block;
+}
